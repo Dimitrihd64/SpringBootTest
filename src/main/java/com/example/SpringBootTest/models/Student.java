@@ -1,19 +1,34 @@
 package com.example.SpringBootTest.models;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+@Entity
+@Table
 public class Student {
-    private Integer id;
+
+    @Id
+    @SequenceGenerator(
+            name = "student_sequence",
+            sequenceName = "student_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "student_sequence"
+    )
+    private Long id;
     private String Name;
     private Integer age;
     private String email;
     private LocalDate birth;
 
-    public Integer getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -56,7 +71,7 @@ public class Student {
         this.birth = birth;
     }
 
-    public Student(Integer id, String name, Integer age, String email, LocalDate birth) {
+    public Student(Long id, String name, Integer age, String email, LocalDate birth) {
         this.id = id;
         Name = name;
         this.age = age;

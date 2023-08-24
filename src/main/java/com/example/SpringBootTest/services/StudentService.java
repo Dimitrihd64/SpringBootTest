@@ -1,16 +1,26 @@
 package com.example.SpringBootTest.services;
 
+
+import com.example.SpringBootTest.Interfaces.StudentRepository;
 import com.example.SpringBootTest.models.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 @Service
 public class StudentService {
 
+    private final StudentRepository studentRepository;
+    @Autowired
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+
     public List<Student> getStudents(){
-        return List.of(new Student(1, "alejandro", 21, "alexrosmmii.ar@gmail.com", LocalDate.of(2002, 9, 18)));
+        return studentRepository.findAll();
 
     }
 }
