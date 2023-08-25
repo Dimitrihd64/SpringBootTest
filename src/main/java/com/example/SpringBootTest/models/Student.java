@@ -3,6 +3,8 @@ package com.example.SpringBootTest.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
+
 @Entity
 @Table
 public class Student {
@@ -19,11 +21,10 @@ public class Student {
     )
     private Long id;
     private String Name;
+    @Transient
     private Integer age;
     private String email;
     private LocalDate birth;
-
-
     public Long getId() {
         return id;
     }
@@ -41,7 +42,7 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
+        return Period.between(this.birth,LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
@@ -64,17 +65,15 @@ public class Student {
         this.birth = birth;
     }
 
-    public Student(String name, Integer age, String email, LocalDate birth) {
+    public Student(String name, String email, LocalDate birth) {
         Name = name;
-        this.age = age;
         this.email = email;
         this.birth = birth;
     }
 
-    public Student(Long id, String name, Integer age, String email, LocalDate birth) {
+    public Student(Long id, String name, String email, LocalDate birth) {
         this.id = id;
         Name = name;
-        this.age = age;
         this.email = email;
         this.birth = birth;
     }
